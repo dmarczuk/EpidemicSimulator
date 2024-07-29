@@ -20,6 +20,9 @@ public class PopulationGenerator {
                 .count();
         updateListOfInfectedAndDyingPeople(listOfInfectedPeople, listOfDyingPeople);
         int numberOfInfectedPeople = (int) (population.numberOfInfectedPeople() * simulation.getMarkerOfInfections());
+        if (numberOfInfectedPeople > population.numberOfHealthyPeople()) {
+            numberOfInfectedPeople = (int) population.numberOfHealthyPeople();
+        }
         int numberOfDyingPeople = (int) (numberOfInfectedPeople * simulation.getMarkerOfDeaths());
         int numberOfInfectedNotDyingPeople = numberOfInfectedPeople - numberOfDyingPeople;
         addDyingPeopleToList(listOfDyingPeople, numberOfDyingPeople, simulation.getDaysFromInfectToDie());

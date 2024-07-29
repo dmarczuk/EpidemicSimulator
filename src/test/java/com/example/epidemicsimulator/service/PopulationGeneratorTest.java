@@ -162,7 +162,7 @@ class PopulationGeneratorTest {
                 () -> assertThat(populations.get(6).numberOfHealthyPeople()).isEqualTo(87200),
                 () -> assertThat(populations.get(6).numberOfDiedPeople()).isEqualTo(1),
                 () -> assertThat(populations.get(6).numberOfRecoveredPeople()).isEqualTo(0),
-                () -> assertThat(populations.get(6).numberOfInfectedPeople()).isEqualTo(12800)
+                () -> assertThat(populations.get(6).numberOfInfectedPeople()).isEqualTo(12799)
         );
     }
 
@@ -238,6 +238,56 @@ class PopulationGeneratorTest {
                         populations.get(9).numberOfInfectedPeople() +
                         populations.get(9).numberOfRecoveredPeople() +
                         populations.get(9).numberOfHealthyPeople()
+        ).isEqualTo(testEpidemic.getNumberOfPopulation());
+    }
+
+    @Test
+    public void should_have_correct_balance_after_20_iterations() {
+        //given
+        Simulation testEpidemic = Simulation.builder()
+                .name("Test epidemic")
+                .numberOfPopulation(100_000)
+                .numberOfInfectedPeople(100)
+                .markerOfInfections(1)
+                .markerOfDeaths(0.002)
+                .daysFromInfectToRecover(14)
+                .daysFromInfectToDie(7)
+                .daysOfSimulation(20).build();
+
+        //when
+        List<Population> populations = simulationService.startGeneratePopulation(testEpidemic);
+
+        //then
+        assertThat(
+                populations.get(19).numberOfDiedPeople() +
+                        populations.get(19).numberOfInfectedPeople() +
+                        populations.get(19).numberOfRecoveredPeople() +
+                        populations.get(19).numberOfHealthyPeople()
+        ).isEqualTo(testEpidemic.getNumberOfPopulation());
+    }
+
+    @Test
+    public void should_have_correct_balance_after_40_iterations() {
+        //given
+        Simulation testEpidemic = Simulation.builder()
+                .name("Test epidemic")
+                .numberOfPopulation(100_000)
+                .numberOfInfectedPeople(100)
+                .markerOfInfections(1)
+                .markerOfDeaths(0.002)
+                .daysFromInfectToRecover(14)
+                .daysFromInfectToDie(7)
+                .daysOfSimulation(40).build();
+
+        //when
+        List<Population> populations = simulationService.startGeneratePopulation(testEpidemic);
+
+        //then
+        assertThat(
+                populations.get(39).numberOfDiedPeople() +
+                        populations.get(39).numberOfInfectedPeople() +
+                        populations.get(39).numberOfRecoveredPeople() +
+                        populations.get(39).numberOfHealthyPeople()
         ).isEqualTo(testEpidemic.getNumberOfPopulation());
     }
 
