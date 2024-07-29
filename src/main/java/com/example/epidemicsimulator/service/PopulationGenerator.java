@@ -4,10 +4,12 @@ import com.example.epidemicsimulator.model.DyingPerson;
 import com.example.epidemicsimulator.model.InfectedPerson;
 import com.example.epidemicsimulator.model.Population;
 import com.example.epidemicsimulator.model.Simulation;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
 
+@Component
 public class PopulationGenerator {
 
     public Population generatePopulation(Population population, Simulation simulation, List<InfectedPerson> listOfInfectedPeople, List<DyingPerson> listOfDyingPeople) {
