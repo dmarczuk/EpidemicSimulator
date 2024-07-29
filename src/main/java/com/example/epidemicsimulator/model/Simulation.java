@@ -9,7 +9,7 @@ public class Simulation {
     private int numberOfInfectedPeople;
     private double markerOfInfections; //number of people who one sick person infect
     private double markerOfDeaths; // quotient of number of deaths and number sick people
-    private int daysFromInfectToGetWell; //
+    private int daysFromInfectToRecover; //
     private int daysFromInfectToDie;
     private int daysOfSimulation;
 
@@ -33,8 +33,8 @@ public class Simulation {
         return markerOfDeaths;
     }
 
-    public int getDaysFromInfectToGetWell() {
-        return daysFromInfectToGetWell;
+    public int getDaysFromInfectToRecover() {
+        return daysFromInfectToRecover;
     }
 
     public int getDaysFromInfectToDie() {

@@ -6,4 +6,12 @@ public class DyingPerson {
     public int getDaysToDie() {
         return daysToDie;
     }
+
+    public void setDaysToDie(int daysToDie) {
+        this.daysToDie = daysToDie;
+    }
+
+    public DyingPerson(int daysToDie) {
+        this.daysToDie = daysToDie;
+    }
 }

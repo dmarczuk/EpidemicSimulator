@@ -5,26 +5,25 @@ import com.example.epidemicsimulator.model.InfectedPerson;
 import com.example.epidemicsimulator.model.Population;
 import com.example.epidemicsimulator.model.Simulation;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class PopulationGenerator {
 
     public Population generatePopulation(Population population, Simulation simulation, List<InfectedPerson> listOfInfectedPeople, List<DyingPerson> listOfDyingPeople) {
-        createListOfInfectedAndDyingPeople(simulation.getMarkerOfDeaths(), population.numberOfHealthyPeople(), listOfInfectedPeople, listOfDyingPeople);
+        //createListOfInfectedAndDyingPeople(simulation.getMarkerOfDeaths(), population.numberOfHealthyPeople(), listOfInfectedPeople, listOfDyingPeople);
         long countDiedPeople = listOfDyingPeople.stream()
                 .filter(p -> p.getDaysToDie() == 0)
                 .count();
         long countRecoveredPeople = listOfInfectedPeople.stream()
                 .filter(p -> p.getDaysToRecover() == 0)
                 .count();
-        updateListOfInfectedAndDyingPeople();
+        updateListOfInfectedAndDyingPeople(listOfInfectedPeople, listOfDyingPeople);
         int numberOfInfectedPeople = (int) (population.numberOfInfectedPeople() * simulation.getMarkerOfInfections());
         int numberOfDyingPeople = (int) (numberOfInfectedPeople * simulation.getMarkerOfDeaths());
         int numberOfInfectedNotDyingPeople = numberOfInfectedPeople - numberOfDyingPeople;
-        addDyingPeopleToList(listOfDyingPeople, numberOfDyingPeople);
-        addInfectedPeopleToList(listOfInfectedPeople, numberOfInfectedNotDyingPeople);
+        addDyingPeopleToList(listOfDyingPeople, numberOfDyingPeople, simulation.getDaysFromInfectToDie());
+        addInfectedPeopleToList(listOfInfectedPeople, numberOfInfectedNotDyingPeople, simulation.getDaysFromInfectToRecover());
 
 
         return Population.builder()
@@ -35,19 +34,30 @@ public class PopulationGenerator {
                 .build();
     }
 
-    private void updateListOfInfectedAndDyingPeople() {
+    private void updateListOfInfectedAndDyingPeople(List<InfectedPerson> listOfInfectedPeople, List<DyingPerson> listOfDyingPeople) {
+        listOfDyingPeople.removeIf(p -> p.getDaysToDie() == 0);
+        listOfDyingPeople.forEach(p -> p.setDaysToDie(p.getDaysToDie() - 1));
+        listOfInfectedPeople.removeIf(p -> p.getDaysToRecover() == 0);
+        listOfInfectedPeople.forEach(p -> p.setDaysToRecover(p.getDaysToRecover() - 1));
     }
 
-    private void addInfectedPeopleToList(List<InfectedPerson> listOfInfectedPeople, int numberOfInfectedNotDyingPeople) {
-
+    public List<InfectedPerson> addInfectedPeopleToList(List<InfectedPerson> listOfInfectedPeople, int numberOfInfectedNotDyingPeople, int days) {
+        for (int i = 0; i < numberOfInfectedNotDyingPeople; i++) {
+            listOfInfectedPeople.add(new InfectedPerson(days));
+        }
+        return listOfInfectedPeople;
     }
 
-    private void addDyingPeopleToList(List<DyingPerson> listOfDyingPeople, int numberOfDyingPeople) {
-
+    public List<DyingPerson> addDyingPeopleToList(List<DyingPerson> listOfDyingPeople, int numberOfDyingPeople, int days) {
+        for (int i = 0; i < numberOfDyingPeople; i++) {
+            listOfDyingPeople.add(new DyingPerson(days));
+        }
+        return listOfDyingPeople;
     }
 
 
     private void createListOfInfectedAndDyingPeople(double markerOfDeaths, long numberOfHealthyPeople, List<InfectedPerson> listOfInfectedPeople, List<DyingPerson> listOfDyingPeople) {
+
     }
 
     public Population generateInitialPopulation(Simulation simulation) {

@@ -15,11 +15,12 @@ public class SimulationService {
 
     public List<Population> startGeneratePopulation(Simulation simulation) {
         List<Population> listOfIterationsOfPopulation = new ArrayList<>();
-        Population initialPopulation = generator.generateInitialPopulation(simulation);
-        //List<InfectedPerson> infectedPeople = generator.generateListOfInfectedPeople(simulation)
-        Population population = initialPopulation;
-        List<InfectedPerson> listOfInfectedPeople = new LinkedList<>();
-        List<DyingPerson> listOfDyingPeople = new LinkedList<>();
+        Population population = generator.generateInitialPopulation(simulation);
+       // Population population = initialPopulation;
+        int numberOfDyingPerson = (int) (simulation.getNumberOfInfectedPeople() * simulation.getMarkerOfDeaths());
+        int numberOfPersonToRecover = simulation.getNumberOfInfectedPeople() - numberOfDyingPerson;
+        List<InfectedPerson> listOfInfectedPeople = generator.addInfectedPeopleToList(new LinkedList<>(), numberOfPersonToRecover, simulation.getDaysFromInfectToRecover());
+        List<DyingPerson> listOfDyingPeople = generator.addDyingPeopleToList(new LinkedList<>(), numberOfDyingPerson, simulation.getDaysFromInfectToDie());
         for (int i = 0; i < simulation.getDaysOfSimulation(); i++) {
             population = generator.generatePopulation(population, simulation, listOfInfectedPeople, listOfDyingPeople);
             listOfIterationsOfPopulation.add(population);

@@ -6,4 +6,12 @@ public class InfectedPerson {
     public int getDaysToRecover() {
         return daysToRecover;
     }
+
+    public void setDaysToRecover(int daysToRecover) {
+        this.daysToRecover = daysToRecover;
+    }
+
+    public InfectedPerson(int daysToRecover) {
+        this.daysToRecover = daysToRecover;
+    }
 }
