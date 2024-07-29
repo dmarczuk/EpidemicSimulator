@@ -4,8 +4,8 @@ import lombok.Builder;
 
 @Builder
 public record Population(
-        int numberOfInfectedPeople,
-        int numberOfHealthyPeople,
-        int numberOfDiedPeople,
-        int numberOfRecoveredPeople) {
+        long numberOfInfectedPeople,
+        long numberOfHealthyPeople,
+        long numberOfDiedPeople,
+        long numberOfRecoveredPeople) {
 }
