@@ -1,9 +1,7 @@
 package com.example.epidemicsimulator.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 
-//@Builder
 @Entity
 public class Simulation {
     @Id
