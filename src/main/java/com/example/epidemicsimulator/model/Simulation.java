@@ -1,5 +1,8 @@
 package com.example.epidemicsimulator.model;
 
+import lombok.Builder;
+
+@Builder
 public class Simulation {
     private String name;
     private int amountPopulation;
@@ -9,4 +12,8 @@ public class Simulation {
     private int daysFromInfectToGetWell; //
     private int dayFromInfectToDie;
     private int daysOfSimulation;
+
+    public int getDaysOfSimulation() {
+        return daysOfSimulation;
+    }
 }
