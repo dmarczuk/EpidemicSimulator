@@ -27,7 +27,7 @@ public class PopulationGenerator {
 
 
         return Population.builder()
-                .numberOfInfectedPeople(population.numberOfInfectedPeople() + numberOfInfectedPeople)
+                .numberOfInfectedPeople(listOfInfectedPeople.size() + listOfDyingPeople.size())
                 .numberOfHealthyPeople(population.numberOfHealthyPeople() - numberOfInfectedPeople)
                 .numberOfDiedPeople(population.numberOfDiedPeople() + countDiedPeople)
                 .numberOfRecoveredPeople(population.numberOfRecoveredPeople() + countRecoveredPeople)
@@ -53,11 +53,6 @@ public class PopulationGenerator {
             listOfDyingPeople.add(new DyingPerson(days));
         }
         return listOfDyingPeople;
-    }
-
-
-    private void createListOfInfectedAndDyingPeople(double markerOfDeaths, long numberOfHealthyPeople, List<InfectedPerson> listOfInfectedPeople, List<DyingPerson> listOfDyingPeople) {
-
     }
 
     public Population generateInitialPopulation(Simulation simulation) {
