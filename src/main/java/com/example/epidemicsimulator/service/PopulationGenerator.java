@@ -10,21 +10,20 @@ public class PopulationGenerator {
 
     public List<Population> startGeneratePopulation(Simulation simulation) {
         List<Population> listOfIterationsOfPopulation = new ArrayList<>();
-        Population population = generateInitialPopulation(simulation);
+        Population initialPopulation = generateInitialPopulation(simulation);
+        Population population = initialPopulation;
         for (int i = 0; i < simulation.getDaysOfSimulation(); i++) {
-            listOfIterationsOfPopulation.add(population);
             population = generatePopulation(population);
-
+            listOfIterationsOfPopulation.add(population);
         }
         return listOfIterationsOfPopulation;
-
     }
 
     private Population generatePopulation(Population population) {
         return Population.builder().build();
     }
 
-    private Population generateInitialPopulation(Simulation simulation) {
+    public Population generateInitialPopulation(Simulation simulation) {
 
         return Population.builder()
                 .numberOfInfectedPeople(simulation.getNumberOfInfectedPeople())
