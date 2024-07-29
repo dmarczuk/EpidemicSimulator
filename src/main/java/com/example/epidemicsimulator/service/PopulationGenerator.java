@@ -1,26 +1,25 @@
 package com.example.epidemicsimulator.service;
 
+import com.example.epidemicsimulator.model.InfectedPerson;
 import com.example.epidemicsimulator.model.Population;
 import com.example.epidemicsimulator.model.Simulation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class PopulationGenerator {
 
-    public List<Population> startGeneratePopulation(Simulation simulation) {
-        List<Population> listOfIterationsOfPopulation = new ArrayList<>();
-        Population initialPopulation = generateInitialPopulation(simulation);
-        Population population = initialPopulation;
-        for (int i = 0; i < simulation.getDaysOfSimulation(); i++) {
-            population = generatePopulation(population);
-            listOfIterationsOfPopulation.add(population);
-        }
-        return listOfIterationsOfPopulation;
+    public Population generatePopulation(Population population, Simulation simulation, List<InfectedPerson> listOfInfectedPeople) {
+        createListOfInfectedPeople(simulation.getMarkerOfDeaths(), population.numberOfHealthyPeople(), listOfInfectedPeople);
+        listOfInfectedPeople.stream()
+                .filter(p -> p.);
+
+
+        return Population.builder().build();
     }
 
-    private Population generatePopulation(Population population) {
-        return Population.builder().build();
+    private void createListOfInfectedPeople(double markerOfDeaths, int numberOfHealthyPeople, List<InfectedPerson> listOfInfectedPeople) {
     }
 
     public Population generateInitialPopulation(Simulation simulation) {
